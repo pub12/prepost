@@ -1,5 +1,26 @@
 
 class PreCond():
+
+
+    ####################################################################################
+    @classmethod
+    def dict_has_fields(cls, **dict_fields ):
+        def main_decorator(original_func):
+            def wrapper_func(*args, **kwargs):
+
+                test_ok = True
+                for dict_name in dict_fields.keys():
+                    if dict_name in kwargs:
+
+                        for expected_field in dict_fields[ dict_name ]:
+                            if not expected_field in kwargs[ dict_name ]:
+                                raise Exception(f"Error in args - could not find field {expected_field} in dictionary {dict_name}" )
+                return original_func(*args, **kwargs)
+                    
+            return wrapper_func
+        return main_decorator
+
+
     ####################################################################################
     @classmethod
     def equals(cls, test_args ):

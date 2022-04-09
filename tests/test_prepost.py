@@ -38,6 +38,13 @@ class TestPre(unittest.TestCase):
 		self.assertRaises(Exception, func_test, fruit='apple' )
 
 
+	def test_pre_dict_fields(self):              
+		@PreCond.dict_has_fields( fruit_dict=['apple', 'banana']  )
+		def func_test(*, fruit_dict):
+			print(f"{fruit_dict}")
+
+		func_test( fruit_dict={'apple':'1kg' } )
+
 
 class TestPost(unittest.TestCase):
 	def test_post_not_null(self):              
