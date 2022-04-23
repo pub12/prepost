@@ -10,17 +10,17 @@ class PreCond():
 		def main_decorator(original_func):
 			def wrapper_func(*args, **kwargs):
 				# breakpoint()
-				if len(args) == 1 and len(kwargs.keys()) ==0 and len( dict_fields.keys()) == 1:
-					for target_field in dict_fields.keys():
-						if not re.match( dict_fields[target_field], args[0]):
-							Exception( f"Field [{target_field}] with value [{args[0]}] does no pattern [{dict_fields[dict_fields]}]")
-				else:
-					for target_field in dict_fields.keys():
-						if target_field in kwargs:
-							if not re.match( dict_fields[target_field], kwargs[target_field]):
-								Exception( f"Field [{target_field}] with value [{kwargs[target_field]}] does no pattern [{dict_fields[dict_fields]}]")
-						else:
-							raise Exception( f"Field [{target_field}] not passed in as a KWarg (keyword argument - e.g. func(arg1='abc')")
+				# if len(args) == 1 and len(kwargs.keys()) ==0 and len( dict_fields.keys()) == 1:
+				# 	for target_field in dict_fields.keys():
+				# 		if not re.match( dict_fields[target_field], args[0]):
+				# 			Exception( f"Field [{target_field}] with value [{args[0]}] does no pattern [{dict_fields[dict_fields]}]")
+				# else:
+				for target_field in dict_fields.keys():
+					if target_field in kwargs:
+						if not re.match( dict_fields[target_field], kwargs[target_field]):
+							Exception( f"Field [{target_field}] with value [{kwargs[target_field]}] does no pattern [{dict_fields[dict_fields]}]")
+					else:
+						raise Exception( f"Field [{target_field}] not passed in as a KWarg (keyword argument - e.g. func(arg1='abc')")
 				return original_func(*args, **kwargs)
 			return wrapper_func
 		return main_decorator

@@ -91,6 +91,15 @@ class TestPre(unittest.TestCase):
 		self.assertRaises(Exception, func_test, fruit="apple1")
 		self.assertRaises(Exception, func_test, "apple1")
 
+		class CLS1:
+			@PreCond.matches_pattern( fruit='^[a-zA-Z]+$')
+			def func_test(*, fruit=None, avacado=None):
+				print(f"{fruit}")
+
+		CLS1().func_test( fruit="apple")
+		self.assertRaises(Exception, CLS1().func_test, fruit="apple1")
+		self.assertRaises(Exception, CLS1().func_test, "apple1")
+
 	def test_0092_maches_pattern_pos(self):
 		@PreCond.matches_pattern( fruit='^[a-zA-Z]+$')
 		def func_test( fruit):
@@ -99,6 +108,13 @@ class TestPre(unittest.TestCase):
 		func_test( "apple")
 		self.assertRaises(Exception, func_test, "apple1")
 		
+		class CLS1:
+			@PreCond.matches_pattern( fruit='^[a-zA-Z]+$')
+			def func_test(self, fruit):
+				print(f"{fruit}")
+
+		CLS1().func_test( "apple")
+		self.assertRaises(Exception, CLS1().func_test, "apple1") 
 
 
 
